@@ -10,6 +10,8 @@ using System.Windows.Forms;
 using System.Security.Cryptography;
 using System.Text.RegularExpressions;
 using System.Web;
+using System.IO;
+using System.Diagnostics;
 
 namespace eventBit.Apps.Example.AttendeeSSOToken
 {
@@ -51,9 +53,17 @@ namespace eventBit.Apps.Example.AttendeeSSOToken
 
         private void TextBox_TextChanged(object sender, EventArgs e)
         {
+            var SourceCode = textBoxSourceCode.Text;
+            var SourceHash = Hash(SourceCode);
+            textBoxSourceHash.Text = Hex(SourceHash);
+
             var Pass = textBoxPassword.Text;
             var Key = Hash(Pass);
             textBoxSharedSecret.Text = Hex(Key);
+
+            var EventCode = textBoxEventCode.Text;
+            var EventHash = Hash(EventCode);
+            textBoxEventCodeHash.Text = Hex(EventHash);
 
             var BadgeID = textBoxBadgeID.Text;
             var BadgeHash = Hash(BadgeID);
@@ -80,9 +90,13 @@ namespace eventBit.Apps.Example.AttendeeSSOToken
             var StampHash = Hash(Stamp);
             textBoxTimestampHash.Text = Hex(StampHash);
 
-            var FullData = new byte[BadgeHash.Length + StampHash.Length];
-            Buffer.BlockCopy(BadgeHash, 0, FullData, 0, BadgeHash.Length);
-            Buffer.BlockCopy(StampHash, 0, FullData, BadgeHash.Length, StampHash.Length);
+            var FullData = new byte[SourceHash.Length + EventHash.Length + BadgeHash.Length + StampHash.Length];
+            var Pos = 0;
+            foreach ( byte[] Part in new byte[][] { SourceHash, EventHash, BadgeHash, StampHash } )
+            {
+                Buffer.BlockCopy(Part, 0, FullData, Pos, Part.Length);
+                Pos += Part.Length;
+            }
             textBoxHMACInput.Text = Hex(FullData);
 
             var FullHMAC = HMAC(FullData, Key);
@@ -96,18 +110,62 @@ namespace eventBit.Apps.Example.AttendeeSSOToken
             textBoxHMACTruncB64.Text = B64;
 
             var Query = HttpUtility.ParseQueryString("?");
+            Query["SourceCode"] = SourceCode;
+            Query["EventCode"] = EventCode;
             Query["BadgeID"] = BadgeID;
             Query["Stamp"] = Stamp;
             Query["Auth"] = B64;
-            var QueryString = Query.ToString();
-            if ( !QueryString.StartsWith("?") )
-                QueryString = "?" + QueryString;
-            textBoxCompleteQuery.Text = QueryString;
+            textBoxCompleteQuery.Text = Query.ToString();
         }
 
         private void v1ProtocolControl_Load(object sender, EventArgs e)
         {
             TextBox_TextChanged(null, null);
+        }
+
+        private string ControlText(Control c)
+        {
+            if ( c is Button )
+                return string.Empty;
+            if ( c is DateTimePicker )
+                return ((DateTimePicker)c).Value.ToString("o");
+            var Sub = c.Controls.OfType<Control>();
+            if ( c is TableLayoutPanel )
+            {
+                var T = (TableLayoutPanel)c;
+                Sub = Sub.OrderBy(X => T.GetRow(X)).ThenBy(X => T.GetColumn(X));
+            }
+            var S = c.Text + string.Concat(Sub.Select(X => ControlText(X)));
+            if ( string.IsNullOrWhiteSpace(S) )
+                return string.Empty;
+            return " " + S.Trim();
+        }
+        private void buttonExport_Click(object sender, EventArgs e)
+        {
+            var LabelWidth = tableLayoutPanelMain.Controls.OfType<Label>()
+                .Where(X => tableLayoutPanelMain.GetColumn(X) == 0)
+                .Max(X => X.Text.Length);
+
+            var ReportBuild = new StringBuilder();
+            var Row = 0;
+            foreach ( Control Ctl in tableLayoutPanelMain.Controls.OfType<Control>()
+                .OrderBy(X => tableLayoutPanelMain.GetRow(X))
+                .ThenBy(X => tableLayoutPanelMain.GetColumn(X)) )
+            {
+                var NewRow = tableLayoutPanelMain.GetRow(Ctl);
+                if ( NewRow != Row )
+                    ReportBuild.AppendLine();
+                Row = NewRow;
+
+                if ( tableLayoutPanelMain.GetColumn(Ctl) == 0 )
+                    ReportBuild.Append((Ctl.Text + ":").PadRight(LabelWidth + 1));
+                else
+                    ReportBuild.Append(ControlText(Ctl));
+            }
+
+            var ReportPath = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString("N") + ".txt");
+            File.WriteAllText(ReportPath, ReportBuild.ToString());
+            Process.Start(ReportPath);
         }
     }
 }

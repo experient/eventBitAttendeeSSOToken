@@ -16,16 +16,20 @@ for each environment:
 
 	1. A Shared Password.
 	2. An API URL.
+	3. A "Source Code" string.
 
-Both of these will be specific to your company and should not be shared.
+Each of these will be specific to your company and should not be shared.
 In particular, you should take whatever precautions possible to control
 access to the Shared Password, e.g. only store or use it on machines you
 control, except when unavoidable (e.g. for offline mobile device apps).
 
+You will also need to recieve from Experient, once per event:
+	3. The Event Code that identifies the event.
+
 You will also need to gather, at runtime:
-	3. The Badge ID of the person you want to sign in as; this person
+	4. The Badge ID of the person you want to sign in as; this person
 	   should already be otherwise authenticated by your app.
-	4. The current date/time.
+	5. The current date/time.
 
 Follow the instructions on the v1 Protocol tab in this application to
 see how to assemble the parameters for the final URL.  Highlighting a

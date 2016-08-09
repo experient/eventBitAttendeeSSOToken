@@ -117,11 +117,11 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="textBoxCompleteQuery.Tag" xml:space="preserve">
-    <value>This is the complete query part of the URI for Attendee SSO, with the BadgeID, Stamp (Token Gen Timestamp) and Auth (Truncated HMAC Base64) fields.  Note that all field contents must be properly URL-encoded, and any whitespace that was used in any calculation above must be preserved.</value>
-  </data>
   <data name="textBoxTimestamp.Tag" xml:space="preserve">
     <value>A timestamp of the time at which the SSO token was generated, as a number of milliseconds since midnight on January 1, 1970, in decimal format.  N.B. the value in this field may have more precision (i.e. milliseconds) than the corresponding date/time value above displays.</value>
+  </data>
+  <data name="textBoxSourceCode.Tag" xml:space="preserve">
+    <value>A code which was provided to you by Experient to identify yourself to Experient (this is equivalent to a "username" to correspond to the "password" above).  N.B. this field is fully case- and whitespace- sensitive, including leading/trailing whitespace.</value>
   </data>
   <data name="dateTimePickerStamp.Tag" xml:space="preserve">
     <value>The date and time at which the SSO token is being generated, in the local timezone.  N.B. that the actual timestamp entered may be more precise than this control can display; this time is only exact if the "Token Gen Timestamp" number below ends in 000.</value>
