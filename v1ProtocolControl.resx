@@ -121,7 +121,7 @@
     <value>A timestamp of the time at which the SSO token was generated, as a number of milliseconds since midnight on January 1, 1970, in decimal format.  N.B. the value in this field may have more precision (i.e. milliseconds) than the corresponding date/time value above displays.</value>
   </data>
   <data name="textBoxSourceCode.Tag" xml:space="preserve">
-    <value>A code which was provided to you by Experient to identify yourself to Experient (this is equivalent to a "username" to correspond to the "password" above).  N.B. this field is fully case- and whitespace- sensitive, including leading/trailing whitespace.</value>
+    <value>A code which was provided to you by Maritz Global Events to identify yourself to Maritz Global Events (this is equivalent to a "username" to correspond to the "password" above).  N.B. this field is fully case- and whitespace- sensitive, including leading/trailing whitespace.</value>
   </data>
   <data name="dateTimePickerStamp.Tag" xml:space="preserve">
     <value>The date and time at which the SSO token is being generated, in the local timezone.  N.B. that the actual timestamp entered may be more precise than this control can display; this time is only exact if the "Token Gen Timestamp" number below ends in 000.</value>

@@ -1,5 +1,5 @@
 ﻿+----------------------------------------------------------------------+
-|          Experient eventBit Attendee Single-Sign-On Protocol         |
+|    Maritz Global Events eventBit Attendee Single-Sign-On Protocol    |
 +----------------------------------------------------------------------+
 
 ------------------------------------------------------------------------
@@ -11,8 +11,8 @@ have been authenticated by an external system into eventBit.
 ------------------------------------------------------------------------
 V1 PROTOCOL
 
-In order to use this protocol, you must first receive from Experient,
-for each environment:
+In order to use this protocol, you must first receive from Maritz Global 
+Events, for each environment:
 
 	1. A Shared Password.
 	2. An API URL.
@@ -23,7 +23,7 @@ In particular, you should take whatever precautions possible to control
 access to the Shared Password, e.g. only store or use it on machines you
 control, except when unavoidable (e.g. for offline mobile device apps).
 
-You will also need to recieve from Experient, once per event:
+You will also need to receive from Maritz Global Events, once per event:
 	3. The Event Code that identifies the event.
 
 You will also need to gather, at runtime:
@@ -36,12 +36,12 @@ see how to assemble the parameters for the final URL.  Highlighting a
 textbox will display help text below explaining how its value was
 derived, and the code in the v1ProtocolControl provides a working C#.NET
 example.  You can also use this application to produce test vectors,
-and compare them with Experient or other implementations.
+and compare them with Maritz Global Events or other implementations.
 
 ------------------------------------------------------------------------
 LICENSE
 
-Copyright (c)2016 Experient, Inc.
+Copyright (c)2016 Maritz Global Events.
 
 Permission is hereby granted, free of charge, to any person obtaining a
 copy of this software and associated documentation files (the

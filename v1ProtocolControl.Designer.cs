@@ -196,7 +196,7 @@
             this.textBoxEventCode.Size = new System.Drawing.Size(802, 20);
             this.textBoxEventCode.TabIndex = 9;
             this.textBoxEventCode.Tag = "The Event Code for the event for which this person is registered, as provided by " +
-    "Experient.  N.B. this field is fully case- and whitespace- sensitive, including " +
+    "Maritz Global Events.  N.B. this field is fully case- and whitespace- sensitive, including " +
     "leading/trailing whitespace.";
             this.textBoxEventCode.TextChanged += new System.EventHandler(this.TextBox_TextChanged);
             // 
@@ -334,7 +334,7 @@
             this.textBoxPassword.Name = "textBoxPassword";
             this.textBoxPassword.Size = new System.Drawing.Size(802, 20);
             this.textBoxPassword.TabIndex = 5;
-            this.textBoxPassword.Tag = "The password shared with Experient.  N.B. this field is fully case- and whitespac" +
+            this.textBoxPassword.Tag = "The password shared with Maritz Global Events.  N.B. this field is fully case- and whitespac" +
     "e- sensitive, including leading/trailing whitespace.";
             this.textBoxPassword.TextChanged += new System.EventHandler(this.TextBox_TextChanged);
             // 
